@@ -1,0 +1,78 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+}
+
+main {
+  padding-bottom: 100px;
+}
+
+.header {
+  background: #333;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.header ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.header li {
+  margin: 0 10px;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px 0px;
+  background: #333;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Logo Container */
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase; /* Capitalizes letters */
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  background-color: #333; /* Dark background for logo */
+  border-radius: 5px; /* Slightly rounded corners */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect for the logo */
+.logo:hover {
+  background-color: #555; /* Slightly lighter shade on hover */
+  transform: scale(1.05); /* Slight scaling effect */
+}
+
+/* Link inside the logo */
+.logo a {
+  color: #fff;
+  text-decoration: none; /* Remove underline */
+  font-size: inherit; /* Inherit font size from the parent */
+  font-weight: inherit; /* Inherit font weight */
+  text-transform: inherit; /* Inherit text transformation */
+  letter-spacing: inherit; /* Inherit letter spacing */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
