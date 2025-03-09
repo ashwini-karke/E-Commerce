@@ -89,3 +89,15 @@
   align-items: center;
   margin-top: 30px;
 }
+
+@media (max-width: 600px) {
+  .user-profile-sections {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .user-profile-sections {
+    justify-content: center;
+  }
+}

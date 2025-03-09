@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { loginUser } from "../services/auth.service";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -70,13 +71,14 @@ const LoginForm = () => {
             {isRegistering
               ? "Already have an account? "
               : "Don't have an account? "}
-            <a
-              href="/register"
-              onClick={() => setIsRegistering(!isRegistering)}
+
+            <Link
               className="toggle-link"
+              onClick={() => setIsRegistering(!isRegistering)}
+              to="/login"
             >
               {isRegistering ? "Login" : "Register"}
-            </a>
+            </Link>
           </span>
         </div>
       </div>

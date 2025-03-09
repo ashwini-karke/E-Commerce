@@ -62,7 +62,7 @@ const CartProductCard: React.FC<CartProductCardProps> = ({
           </div>
         </div>
       </div>
-      <button onClick={() => removeFromCart(product.product)}>X Remove</button>
+      <button className="remove-btn" onClick={() => removeFromCart(product.product)}>X Remove</button>
     </div>
   );
 };

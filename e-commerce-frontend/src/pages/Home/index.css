@@ -174,3 +174,15 @@
     margin-bottom: 10px;
   }
 }
+
+@media (max-width: 600px) {
+    .homepage{
+        height: 80vh;
+    }
+}
+
+@media (max-width: 900px) {
+    .homepage{
+        height: 80vh;
+    }
+}

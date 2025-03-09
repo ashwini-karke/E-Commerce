@@ -92,3 +92,15 @@ body {
     text-decoration: underline;
   }
   
+
+  /* @media (max-width: 600px) {
+    .form-container {
+      padding-top: 100px;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .form-container {
+      padding-top: 100px;
+    }
+  } */

@@ -33,8 +33,10 @@
 /* Product Name */
 .product-name {
   font-size: 18px;
+  text-align: left;
   font-weight: bold;
   color: #333;
+  width: 100%;
 }
 
 /* Price */
@@ -70,13 +72,13 @@
 }
 
 .like-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
 .add-to-cart-button {
   width: 100%;
@@ -109,6 +111,9 @@
 
   .product-name {
     font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    width: 100%;
   }
 
   .product-price {
@@ -132,11 +137,15 @@
   }
 
   .product-card {
-    width: 45%;
-    max-width: 280px;
+    width: 80%;
+    max-width: 340px;
   }
 
   .product-name {
+    font-size: 17px;
+    font-weight: bold;
+    color: #333;
+    width: 100%;
     font-size: 17px;
   }
 

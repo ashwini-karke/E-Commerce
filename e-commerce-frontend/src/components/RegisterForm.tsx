@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { registerUser } from "../services/auth.service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -53,9 +53,7 @@ const RegisterForm = () => {
         <div className="toggle-form">
           <span>
             Already have an account?{" "}
-            <a href="/login" className="toggle-link">
-              Login
-            </a>
+            <Link className="toggle-link" to="/login">Login</Link>
           </span>
         </div>
       </div>
