@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 
-const API_URL = "http://localhost:5000"; // Change this to your backend URL
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"; // Change this to your backend URL
 
 // Set up Axios instance
 const axiosInstance = axios.create({

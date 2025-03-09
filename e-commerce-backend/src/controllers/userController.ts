@@ -43,7 +43,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
 
     // Generate JWT token including isAdmin
     const token = jwt.sign(
-      { id: user._id, email: user.email, isAdmin: user.isAdmin }, // ✅ Replacing role with isAdmin
+      { id: user._id, email: user.email, isAdmin: user.isAdmin }, 
       process.env.JWT_SECRET as string,
       { expiresIn: "1h" }
     );
