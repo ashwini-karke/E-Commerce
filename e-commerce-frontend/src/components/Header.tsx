@@ -5,6 +5,7 @@ const Header: React.FC = () => {
   const token = localStorage.getItem("token");
   const user = localStorage.getItem("user");
   const parsedUser = user ? JSON.parse(user) : null;
+  const isAdmin = parsedUser?.isAdmin;
 
   return (
     <header className="header">
@@ -15,11 +16,13 @@ const Header: React.FC = () => {
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/products">Products</Link></li>
-          <li><Link to="/checkout">Cart</Link></li>
+          
+          {/* Hide Cart if user is an Admin */}
+          {!isAdmin && <li><Link to="/checkout">Cart</Link></li>}
           
           {token && parsedUser ? (
             <li>
-              <Link to={parsedUser.isAdmin ? "/admin-profile" : "/user-profile"}>
+              <Link to={isAdmin ? "/admin-profile" : "/user-profile"}>
                 Profile
               </Link>
             </li>

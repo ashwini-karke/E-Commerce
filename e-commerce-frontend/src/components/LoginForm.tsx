@@ -71,7 +71,7 @@ const LoginForm = () => {
               ? "Already have an account? "
               : "Don't have an account? "}
             <a
-              href="#"
+              href="/register"
               onClick={() => setIsRegistering(!isRegistering)}
               className="toggle-link"
             >

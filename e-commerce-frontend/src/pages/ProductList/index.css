@@ -23,15 +23,17 @@
 .category-list {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .category-item {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 25px;
+  font-weight: 900;
   color: #007bff;
   margin-bottom: 5px;
-  padding: 50px;
+  padding: 60px;
   border: 1px solid;
 }
 
