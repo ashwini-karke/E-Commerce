@@ -11,11 +11,12 @@ main {
 
 .header {
   background: #333;
-  color: white;
+  color: #fff;
   padding: 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .header a {
@@ -75,4 +76,56 @@ main {
   text-transform: inherit; /* Inherit text transformation */
   letter-spacing: inherit; /* Inherit letter spacing */
   transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Small devices (phones) */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .header ul {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .header li {
+    margin: 5px 0;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    padding: 8px 16px;
+  }
+
+  main {
+    padding-bottom: 80px;
+  }
+
+  .footer {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+}
+
+/* Medium devices (tablets) */
+@media (max-width: 900px) {
+  .header {
+    padding: 12px;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+    padding: 10px 18px;
+  }
+
+  .header a {
+    margin: 0 10px;
+  }
+
+  .footer {
+    font-size: 16px;
+  }
 }
