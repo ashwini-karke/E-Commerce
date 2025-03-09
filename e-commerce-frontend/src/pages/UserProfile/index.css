@@ -1,0 +1,91 @@
+/* Dashboard Styles */
+.profile {
+  background-color: #121212;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  padding: 20px 0;
+}
+
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.greeting {
+  color: #f4a261;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.user-profile-sections {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 30%;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.card h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #ddd;
+}
+
+.card a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+.btn-primary {
+  display: flex;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-logout {
+  background-color: #e63946;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100px;
+}
+
+.btn-logout:hover {
+  background-color: #d62828;
+}
+
+.profile-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
