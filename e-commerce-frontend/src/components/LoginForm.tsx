@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { loginUser } from "../services/auth.service";
-import { Link } from "react-router-dom";
+import { loginUser, registerUser } from "../services/auth.service";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorLoginMessage, setErrorLoginMessage] = useState("");
+  const [errorRegisterMessage, setErrorRegisterMessage] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [name, setName] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,20 +25,40 @@ const LoginForm = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      setErrorMessage("Invalid credentials");
+      setErrorLoginMessage("Invalid credentials");
     }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("User registered:", { name, email, password });
+    try {
+      const response = await registerUser(name, email, password);
+      console.log("User registered:", response);
+
+      if (response) {
+        navigate("/login"); // Navigate only if registration succeeds
+        setErrorRegisterMessage("");
+        setEmail("");
+        setPassword("");
+        setIsRegistering(!isRegistering)
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      setErrorRegisterMessage("Error registering user.");
+    }
   };
 
   return (
     <div className="form-container">
       <div className="form-content">
         <h2>{isRegistering ? "Register" : "Login"}</h2>
-        {errorMessage && <div className="error">{errorMessage}</div>}
+        {isRegistering && errorRegisterMessage && (
+          <div className="error">{errorRegisterMessage}</div>
+        )}
+        {!isRegistering && errorLoginMessage && (
+          <div className="error">{errorLoginMessage}</div>
+        )}
+
         <form
           onSubmit={isRegistering ? handleRegister : handleLogin}
           className="form"

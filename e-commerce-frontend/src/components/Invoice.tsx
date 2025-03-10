@@ -25,7 +25,7 @@ const Invoice: React.FC<{ cart: CartItem[] }> = ({ cart }) => {
           {cart.reduce((sum, item) => sum + item.quantity, 0)}
         </p>
         <p>
-          <strong>Total Amount:</strong> ₹{totalAmount.toFixed(2)}
+          <strong>Total Amount:</strong> ₹ {totalAmount.toFixed(2)}
         </p>
       </div>
     </div>

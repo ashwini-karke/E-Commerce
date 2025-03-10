@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes"; // Import user routes
 import productRoutes from "./routes/productRoutes";
 import { setupSwagger } from "../swagger"; // Import Swagger setup
 import cartRoutes from "./routes/cartRoutes";
+import orderRoutes from "./routes/orderRoutes";
 
 dotenv.config();
 connectDB(); // Connect to MongoDB
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Setup Swagger
 setupSwagger(app);

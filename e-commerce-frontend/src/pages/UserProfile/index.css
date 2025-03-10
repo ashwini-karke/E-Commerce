@@ -23,7 +23,7 @@
 
 .user-profile-sections {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
 }
@@ -64,8 +64,10 @@
   color: white;
   text-align: center;
   border-radius: 5px;
+  flex-grow: 1;
   text-decoration: none;
   font-weight: bold;
+  justify-content: center;
 }
 
 .btn-logout {

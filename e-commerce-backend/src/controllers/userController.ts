@@ -4,30 +4,39 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const registerUser = async (req: Request, res: Response): Promise<any> => {
-  const { name, email, password, role } = req.body; // Accept role from request
+  const { name, email, password, role } = req.body; 
 
   try {
-    // Check if the user already exists
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: "User already exists" });
+    // Validate required fields
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
-    // Hash the password
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ message: "Email is already registered" }); // 409 Conflict
+    }
+
+    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create new user with role (default to 'user' if not provided)
+    // Create new user
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
-      role: role || "user", // Default role is 'user'
+      role: role || "user",
     });
 
     res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    console.error("Registration Error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 export const loginUser = async (req: Request, res: Response): Promise<any> => {
   try {

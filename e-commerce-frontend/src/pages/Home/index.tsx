@@ -13,14 +13,14 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="categories">
+      {/* <section className="categories">
         <h2>Shop by Category</h2>
         <div className="home-category-list">
           <Link to="/products?category=electronics">Electronics</Link>
           <Link to="/products?category=clothing">Clothing</Link>
           <Link to="/products?category=footwear">Footwear</Link>
         </div>
-      </section>
+      </section> */}
 
       {/* Newsletter Signup */}
       <section className="newsletter">

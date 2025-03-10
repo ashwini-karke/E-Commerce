@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
-// import { getUserOrders } from "../services/order.service"; // Uncomment this when ready to fetch orders
 
 const UserProfile = () => {
-  const [orders, setOrders] = useState([]);
   const [user, setUser] = useState<any>(null);
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user") || "{}");
@@ -14,18 +12,11 @@ const UserProfile = () => {
 
     const token = localStorage.getItem("token");
 
-    // If no token or user data, redirect to login
     if (!token || !userData.id) {
-      navigate("/login"); // Redirect to login page
+      navigate("/login");
       return;
     }
-    // Fetch user's orders (Uncomment when API integration is available)
-    // const fetchOrders = async () => {
-    //   const fetchedOrders = await getUserOrders(userData.id);
-    //   setOrders(fetchedOrders);
-    // };
-    // fetchOrders();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="profile">
@@ -53,25 +44,13 @@ const UserProfile = () => {
               <p>
                 <strong>Name:</strong> {user?.name}
               </p>
-              {/* Add more info like address, payment methods, etc. */}
             </section>
 
-            <section className="order-history card">
-              <h3>Your Orders</h3>
-              {orders.length > 0 ? (
-                <ul>
-                  {orders.map((order: any) => (
-                    <li key={order.id}>
-                      <Link to={`/order/${order.id}`}>
-                        Order #{order.id} - {order.status}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>No orders yet.</p>
-              )}
-            </section>
+            <Link to="/orders" className="btn-primary">
+              <section className="order-history card">
+                <h3>Your Orders</h3>
+              </section>
+            </Link>
 
             <Link to="/checkout" className="btn-primary">
               <section className="cart-quick-view card">

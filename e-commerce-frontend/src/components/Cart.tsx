@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CartProductCard from "./CartProductCard";
-import { fetchCart, removeCartItem } from "../services/cartService";
+import { clearCart, fetchCart, removeCartItem } from "../services/cartService";
 import Invoice from "./Invoice";
 
 interface CartItem {
@@ -13,12 +13,22 @@ interface CartItem {
   image: string;
 }
 
-const Cart: React.FC<{ nextStep: () => void; setBill: (bill: any) => void }> = ({ nextStep, setBill }) => {
+const Cart: React.FC<{
+  nextStep: () => void;
+  setBill: (bill: any) => void;
+}> = ({ nextStep, setBill }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleNext = () => {
-    setBill((prev: any) => ({ ...prev, invoice: "INV-12345" }));
+    const user = localStorage.getItem("user");
+    const parsedUser = user ? JSON.parse(user) : null;
+    const timestamp = Date.now(); // Get current timestamp
+    const invoiceNumber = parsedUser.id
+      ? `INV-${parsedUser.id}-${timestamp}`
+      : `INV-${timestamp}`; // Generate unique invoice number
+
+    setBill((prev: any) => ({ ...prev, invoice: invoiceNumber, cart:cart }));
     nextStep();
   };
 
@@ -46,7 +56,9 @@ const Cart: React.FC<{ nextStep: () => void; setBill: (bill: any) => void }> = (
   const handleRemoveFromCart = async (productId: string) => {
     try {
       await removeCartItem(productId);
-      setCart((prevCart) => prevCart.filter((item) => item.product !== productId));
+      setCart((prevCart) =>
+        prevCart.filter((item) => item.product !== productId)
+      );
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
@@ -54,19 +66,23 @@ const Cart: React.FC<{ nextStep: () => void; setBill: (bill: any) => void }> = (
 
   // **Update Quantity and Remove if Zero**
   const updateQuantity = (productId: string, newQuantity: number) => {
-    setCart((prevCart) =>
-      prevCart
-        .map((item) =>
-          item.product === productId ? { ...item, quantity: newQuantity } : item
-        )
-        .filter((item) => item.quantity > 0) // Remove items where quantity is 0
+    setCart(
+      (prevCart) =>
+        prevCart
+          .map((item) =>
+            item.product === productId
+              ? { ...item, quantity: newQuantity }
+              : item
+          )
+          .filter((item) => item.quantity > 0) // Remove items where quantity is 0
     );
   };
 
   // Clear Cart Function
   const handleClearCart = () => {
+
     setCart([]);
-    console.warn("Clear cart functionality should be implemented in the backend.");
+    clearCart()
   };
 
   return (

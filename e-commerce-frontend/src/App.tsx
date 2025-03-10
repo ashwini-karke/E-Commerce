@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import UserProfile from "./pages/UserProfile";
 import AdminProfile from "./pages/AdminProfile";
+import OrdersPage from "./pages/Orders";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/orders" element={<OrdersPage />} />
         </Route>
       </Routes>
     </Router>

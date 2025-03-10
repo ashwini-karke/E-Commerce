@@ -4,8 +4,11 @@
   margin: 0;
   padding: 0;
   text-align: center;
-  background-color: lightgray;
+  display: flex;
   color: #333;
+  height: 75vh;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Hero Section */
@@ -53,9 +56,9 @@
 .categories h2,
 .offers h2,
 .newsletter h2 {
-    font-size: 2rem;
-    color: brown;
-    margin-bottom: 20px;
+  font-size: 2rem;
+  color: brown;
+  margin-bottom: 20px;
 }
 
 .product-list {
@@ -148,6 +151,7 @@
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  width: fit-content;
 }
 
 .newsletter button:hover {
@@ -176,13 +180,13 @@
 }
 
 @media (max-width: 600px) {
-    .homepage{
-        height: 80vh;
-    }
+  .homepage {
+    height: 80vh;
+  }
 }
 
 @media (max-width: 900px) {
-    .homepage{
-        height: 80vh;
-    }
+  .homepage {
+    height: 80vh;
+  }
 }

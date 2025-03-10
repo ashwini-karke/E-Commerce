@@ -1,0 +1,88 @@
+.orders-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #fff;
+}
+
+.order-list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  gap: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.order-item {
+  background: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 15px;
+  flex-grow: 1;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.order-header h2 {
+  color: #fff;
+}
+
+.order-details p {
+  margin: 5px 0;
+}
+
+.order-id {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.invoice {
+  font-size: 14px;
+  color: #555;
+}
+
+.items {
+  margin-top: 10px;
+  color: darkgray;
+}
+
+.item {
+  background: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.status {
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.shipping,
+.total,
+.payment {
+  font-size: 14px;
+  color: #333;
+}
+
+.btn-back {
+  display: block;
+  text-align: center;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-back:hover {
+  background: #0056b3;
+}

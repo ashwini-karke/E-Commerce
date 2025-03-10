@@ -195,6 +195,123 @@
   background-color: #28a745;
 }
 
+/*--------------------*/
+
+.payment-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.dropdown-container {
+  margin: 20px 0;
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the custom dropdown */
+.custom-dropdown {
+  width: 260px;
+  padding: 0px 12px;
+  font-size: 16px;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  background: #f9f9f9;
+  color: #333;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s ease-in-out;
+  font-weight: bold;
+  -webkit-appearance: none; /* Disables default styling in Safari */
+  -moz-appearance: none; /* Disables default styling in Firefox */
+}
+
+.custom-dropdown::-ms-expand {
+  display: none; /* Remove dropdown arrow in IE/Edge */
+}
+
+/* Style the background when hovering */
+.custom-dropdown:hover {
+  border-color: #2980b9;
+  background: #fff;
+}
+
+/* Focus state */
+.custom-dropdown:focus {
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+  background: #fff;
+}
+
+/* Add a custom arrow for better control */
+.custom-dropdown::after {
+  content: "▼";
+  font-size: 14px;
+  color: #3498db;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+select {
+  width: 20%;
+  background-color: lightgrey;
+  height: 35px;
+  border-radius: 4px;
+}
+
+.back-btn,
+.next-btn {
+  padding: 12px 18px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+  width: fit-content;
+}
+
+.back-btn {
+  background-color: #e74c3c;
+  color: white;
+  margin-right: 10px;
+}
+
+.back-btn:hover {
+  background-color: #c0392b;
+}
+
+.next-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.next-btn:hover {
+  background-color: #27ae60;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.summary-items {
+  margin: 0px;
+  border-bottom: 1px solid darkslategrey;
+  padding-bottom: 15px;
+}
+
+.step-container {
+  width: fit-content;
+}
 @media (max-width: 600px) {
   .cart-card {
     width: 91%;

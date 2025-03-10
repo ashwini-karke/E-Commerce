@@ -8,15 +8,9 @@ import { FaCheck } from "react-icons/fa";
 
 const steps = ["Cart", "Address", "Payment", "Summary"];
 
-interface Bill {
-  invoice: string;
-  address: string;
-  paymentDetails: string;
-}
-
 const CheckoutPage: React.FC = () => {
   const [step, setStep] = useState(1);
-  const [bill, setBill] = useState<Bill>({ invoice: "", address: "", paymentDetails: "" });
+  const [bill, setBill] = useState<any>();
 
   const nextStep = () => {
     if (step < steps.length) setStep(step + 1);
@@ -31,7 +25,16 @@ const CheckoutPage: React.FC = () => {
       {/* Progress Bar */}
       <div className="progress-bar">
         {steps.map((label, index) => (
-          <div key={index} className={`progress-step ${step > index + 1 ? "completed" : step === index + 1 ? "active" : ""}`}>
+          <div
+            key={index}
+            className={`progress-step ${
+              step > index + 1 || step === steps.length
+                ? "completed"
+                : step === index + 1
+                ? "active"
+                : ""
+            }`}
+          >
             <div className="step-icon">
               {step > index + 1 ? <FaCheck /> : index + 1}
             </div>
@@ -43,8 +46,12 @@ const CheckoutPage: React.FC = () => {
       {/* Render Components Based on Step */}
       <div className="step-container">
         {step === 1 && <Cart nextStep={nextStep} setBill={setBill} />}
-        {step === 2 && <Address nextStep={nextStep} prevStep={prevStep} setBill={setBill} />}
-        {step === 3 && <Payment nextStep={nextStep} prevStep={prevStep} setBill={setBill} />}
+        {step === 2 && (
+          <Address nextStep={nextStep} prevStep={prevStep} setBill={setBill} />
+        )}
+        {step === 3 && (
+          <Payment nextStep={nextStep} prevStep={prevStep} setBill={setBill} />
+        )}
         {step === 4 && <Summary prevStep={prevStep} bill={bill} />}
       </div>
     </div>
