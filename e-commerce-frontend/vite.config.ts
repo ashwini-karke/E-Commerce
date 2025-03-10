@@ -8,4 +8,7 @@ export default defineConfig({
     host: "0.0.0.0", // Bind to all network interfaces (needed for Railway)
     port: parseInt(process.env.PORT || "4173"), // Use Railway's assigned port
   },
+  preview: {
+    allowedHosts: ["brave-consideration-production.up.railway.app"], // Allow Railway deployment
+  },
 });
