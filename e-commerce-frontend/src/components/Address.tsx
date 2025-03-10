@@ -5,7 +5,7 @@ const Payment: React.FC<{
   prevStep: () => void;
   setBill: (bill: any) => void;
 }> = ({ nextStep, prevStep, setBill }) => {
-  const [selectedPayment, setSelectedPayment] = useState("Credit/Debit Card");
+  const [selectedPayment] = useState("Credit/Debit Card");
   const [address, setAddress] = useState(""); // State to store the address
   const [addressError, setAddressError] = useState(""); // State to store error message for address validation
 

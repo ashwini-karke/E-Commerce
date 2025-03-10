@@ -1,5 +1,4 @@
 import React from "react";
-import Payment from './Payment';
 
 const Summary: React.FC<{
   prevStep: () => void;
@@ -13,7 +12,7 @@ const Summary: React.FC<{
       quantity: number;
     }[]; // Updated structure for cart items
   };
-}> = ({ prevStep, bill }) => {
+}> = ({ bill }) => {
   return (
     <div>
       <h2>Order Summary</h2>
