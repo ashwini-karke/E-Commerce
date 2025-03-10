@@ -90,7 +90,7 @@ const Payment: React.FC<PaymentProps> = ({ nextStep, prevStep, setBill }) => {
     const amountInPaise = formattedOrder.totalAmountPaise; // ✅ Use correctly formatted amount
 
     const options = {
-      key: "rzp_test_vCR5xZDAlaTgI4", // Replace with your Razorpay Test Key
+      key: import.meta.env.VITE_RAZORPAY_KEY, // Replace with your Razorpay Test Key
       amount: amountInPaise, // ✅ Amount in paise
       currency: "INR",
       name: "Your Store Name",
