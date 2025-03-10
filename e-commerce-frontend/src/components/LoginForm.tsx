@@ -9,42 +9,52 @@ const LoginForm = () => {
   const [errorRegisterMessage, setErrorRegisterMessage] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false); // State for loading
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Disable button and show loader
+    setErrorLoginMessage("");
+
     try {
       const response = await loginUser(email, password);
-
       console.log("User logged in:", response);
 
       if (response.isAdmin) {
-        window.location.href = "/admin-profile"; // Redirect admin users
+        window.location.href = "/admin-profile";
       } else {
-        window.location.href = "/user-profile"; // Redirect regular users
+        window.location.href = "/user-profile";
       }
     } catch (error) {
       console.error("Login error:", error);
       setErrorLoginMessage("Invalid credentials");
+    } finally {
+      setLoading(false); // Re-enable button after request completes
     }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Disable button and show loader
+    setErrorRegisterMessage("");
+
     try {
       const response = await registerUser(name, email, password);
       console.log("User registered:", response);
 
       if (response) {
-        navigate("/login"); // Navigate only if registration succeeds
+        navigate("/login");
         setErrorRegisterMessage("");
         setEmail("");
         setPassword("");
-        setIsRegistering(!isRegistering)
+        setIsRegistering(false);
       }
     } catch (error) {
       console.error("Registration error:", error);
       setErrorRegisterMessage("Error registering user.");
+    } finally {
+      setLoading(false); // Re-enable button after request completes
     }
   };
 
@@ -52,53 +62,25 @@ const LoginForm = () => {
     <div className="form-container">
       <div className="form-content">
         <h2>{isRegistering ? "Register" : "Login"}</h2>
-        {isRegistering && errorRegisterMessage && (
-          <div className="error">{errorRegisterMessage}</div>
-        )}
-        {!isRegistering && errorLoginMessage && (
-          <div className="error">{errorLoginMessage}</div>
-        )}
+        {isRegistering && errorRegisterMessage && <div className="error">{errorRegisterMessage}</div>}
+        {!isRegistering && errorLoginMessage && <div className="error">{errorLoginMessage}</div>}
 
-        <form
-          onSubmit={isRegistering ? handleRegister : handleLogin}
-          className="form"
-        >
+        <form onSubmit={isRegistering ? handleRegister : handleLogin} className="form">
           {isRegistering && (
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+            <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
           )}
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit">{isRegistering ? "Register" : "Login"}</button>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+          <button type="submit" disabled={loading} className={loading ? "disabled-button" : ""}>
+            {loading ? (isRegistering ? "Registering..." : "Logging in...") : isRegistering ? "Register" : "Login"}
+          </button>
         </form>
+
         <div className="toggle-form">
           <span>
-            {isRegistering
-              ? "Already have an account? "
-              : "Don't have an account? "}
-
-            <Link
-              className="toggle-link"
-              onClick={() => setIsRegistering(!isRegistering)}
-              to="/login"
-            >
+            {isRegistering ? "Already have an account? " : "Don't have an account? "}
+            <Link className="toggle-link" onClick={() => setIsRegistering(!isRegistering)} to="/login">
               {isRegistering ? "Login" : "Register"}
             </Link>
           </span>
