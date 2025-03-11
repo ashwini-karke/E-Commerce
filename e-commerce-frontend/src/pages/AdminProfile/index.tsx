@@ -51,11 +51,15 @@ const AdminProfile: React.FC = () => {
 
           <div className="admin-profile-cards">
             <Card title="Add Product" onClick={() => setShowAddModal(true)} />
-            <Card title="Update Product" onClick={() => navigate("/orders")} />
+            <Card
+              title="Update Product"
+              onClick={() => setShowUpdateModal(true)}
+            />
             <Card
               title="Delete Product"
               onClick={() => setShowDeleteModal(true)}
             />
+            <Card title="Update Orders" onClick={() => navigate("/orders")} />
           </div>
           {showAddModal && (
             <AddProductModal onClose={() => setShowAddModal(false)} />

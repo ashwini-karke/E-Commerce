@@ -51,6 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <span className="product-price">₹{price}</span>
       </div>
 
+      <p className="product-id">Product Id: {_id}</p>
       <p className="product-description">{description}</p>
 
       <span className="product-category">{category}</span>

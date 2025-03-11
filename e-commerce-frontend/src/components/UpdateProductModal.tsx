@@ -57,9 +57,9 @@ const UpdateProductModal: React.FC<ModalProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2 className="modal-label">Add Product</h2>
+    <div className="product-modal-overlay" onClick={onClose}>
+      <div className="product-modal" onClick={(e) => e.stopPropagation()}>
+        <h2 className="product-modal-label">Add Product</h2>
         <form className="add-product-form" onSubmit={handleSubmit}>
           <input
             type="text"

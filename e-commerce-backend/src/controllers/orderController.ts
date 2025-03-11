@@ -63,35 +63,45 @@ export const getOrders = async (req: Request, res: Response): Promise<any> => {
       filter.user = userId; // Restrict to user's own orders
     }
 
-    // ✅ Handle orderId (Exact Match)
-    if (orderId) {
-      if (mongoose.Types.ObjectId.isValid(orderId as string)) {
-        filter._id = new mongoose.Types.ObjectId(orderId as string);
+    // ✅ Order ID Search (Exact Match)
+    if (orderId && typeof orderId === "string") {
+      if (mongoose.Types.ObjectId.isValid(orderId)) {
+        filter._id = new mongoose.Types.ObjectId(orderId);
       } else {
         console.log("Invalid Order ID:", orderId);
         return res.status(400).json({ message: "Invalid order ID format" });
       }
     }
 
-    // ✅ Handle name and category filtering
-    if (name || category) {
-      filter.items = { $elemMatch: {} };
+    // ✅ Name Search (Handles ObjectId, Status, and Product Name)
+    if (name && typeof name === "string") {
+      if (mongoose.Types.ObjectId.isValid(name)) {
+        // If `name` is an ObjectId, treat it as an exact match for `_id`
+        filter._id = new mongoose.Types.ObjectId(name);
+      } else if (name.length >= 3) {
+        // Otherwise, perform a partial search for status or product name
+        const possibleStatuses = ["Pending", "Shipped", "Delivered", "Cancelled"];
+        const isStatusMatch = possibleStatuses.some((status) =>
+          status.toLowerCase().includes(name.toLowerCase())
+        );
 
-      // ✅ Check if `name` is an ObjectId → Use as `_id`
-      if (name && mongoose.Types.ObjectId.isValid(name as string)) {
-        filter._id = new mongoose.Types.ObjectId(name as string);
-      } else if (name && typeof name === "string") {
-        filter.items.$elemMatch.name = { $regex: new RegExp(name, "i") }; // ✅ Allows partial match
+        if (isStatusMatch) {
+          filter.status = { $regex: new RegExp(name, "i") };
+        } else {
+          filter.items = { $elemMatch: { name: { $regex: new RegExp(name, "i") } } };
+        }
       }
+    }
 
-      if (category && typeof category === "string") {
-        filter.items.$elemMatch.category = { $regex: new RegExp(category, "i") }; // ✅ Allows partial match
-      }
+    // ✅ Category Search
+    if (category && typeof category === "string") {
+      filter.items = filter.items || { $elemMatch: {} };
+      filter.items.$elemMatch.category = { $regex: new RegExp(category, "i") };
+    }
 
-      // If $elemMatch is empty, remove it
-      if (Object.keys(filter.items.$elemMatch).length === 0) {
-        delete filter.items;
-      }
+    // Remove empty `$elemMatch`
+    if (filter.items && Object.keys(filter.items.$elemMatch).length === 0) {
+      delete filter.items;
     }
 
     console.log("Final MongoDB Query Filter:", JSON.stringify(filter, null, 2));
@@ -110,60 +120,6 @@ export const getOrders = async (req: Request, res: Response): Promise<any> => {
     res.status(500).json({ message: "Server error", error });
   }
 };
-
-
-
-
-
-// Get orders for a user
-// export const getOrders = async (req: Request, res: Response): Promise<any> => {
-//   try {
-//     const userId = req.user?.id;
-
-//     if (!userId) {
-//       return res.status(401).json({ message: "Unauthorized: User not found" });
-//     }
-
-//     const orders = await Order.find({ user: userId });
-
-//     if (!orders.length) {
-//       return res.status(404).json({ message: "No orders found" });
-//     }
-
-//     res.status(200).json(orders);
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error });
-//   }
-// };
-
-// // Get order details by order ID
-// export const getOrderDetails = async (
-//   req: Request,
-//   res: Response
-// ): Promise<any> => {
-//   try {
-//     const { orderId } = req.params;
-//     const userId = req.user?.id;
-//     const isAdmin = req.user?.isAdmin;
-
-//     let order;
-//     if (isAdmin) {
-//       // Admins can fetch any order
-//       order = await Order.findById(orderId);
-//     } else {
-//       // Users can fetch only their own orders
-//       order = await Order.findOne({ _id: orderId, user: userId });
-//     }
-
-//     if (!order) {
-//       return res.status(404).json({ message: "Order not found" });
-//     }
-
-//     res.status(200).json(order);
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error });
-//   }
-// };
 
 // Update order status (Admin Only)
 export const updateOrderStatus = async (
