@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchOrders } from "../../services/orderService";
 import "./index.css";
+import OrderCard from "../../components/OrdersCard";
 
 interface Order {
   _id: string;
@@ -15,12 +16,13 @@ interface Order {
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem("user") || "{}");
+  const isAdmin = userData?.isAdmin || false;
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user") || "{}");
     const token = localStorage.getItem("token");
-
     if (!token || !userData.id) {
       navigate("/login");
       return;
@@ -28,7 +30,9 @@ const OrdersPage = () => {
 
     const getOrders = async () => {
       try {
-        const fetchedOrders = await fetchOrders();
+        const fetchedOrders = await fetchOrders(
+          search.length >= 3 ? { name: search } : {}
+        );
         setOrders(fetchedOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -36,12 +40,20 @@ const OrdersPage = () => {
     };
 
     getOrders();
-  }, [navigate]);
+  }, [navigate, search]);
 
   return (
     <div className="orders-container">
       <div className="order-header">
-        <h2>Your Orders</h2>
+        <div className="order-searchbar">
+          <h2>Your Orders</h2>
+          <input
+            type="text"
+            placeholder="Search orders..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
         <Link to="/user-profile" className="btn-back">
           Back to Profile
         </Link>
@@ -50,27 +62,7 @@ const OrdersPage = () => {
       {orders.length > 0 ? (
         <ul className="order-list">
           {orders.map((order) => (
-            <li key={order._id} className="order-item">
-              <div className="order-details">
-                <p className="order-id">Order ID: {order._id}</p>
-                <p className="invoice">Invoice: {order.invoiceNumber}</p>
-                <div className="items">
-                  <strong>Items:</strong>
-                  {order.items.map((item) => (
-                    <p key={item._id} className="item">
-                      {item.name} - {item.quantity} x ₹{item.price} = ₹
-                      {item.quantity * item.price}
-                    </p>
-                  ))}
-                </div>
-                <p className="status">Status: {order.status}</p>
-                <p className="shipping">
-                  Shipping Address: {order.shippingAddress}
-                </p>
-                <p className="total">Total Amount: ₹{order.totalAmount}</p>
-                <p className="payment">Payment: {order.paymentDetails}</p>
-              </div>
-            </li>
+            <OrderCard key={order._id} order={order} isAdmin={isAdmin} />
           ))}
         </ul>
       ) : (

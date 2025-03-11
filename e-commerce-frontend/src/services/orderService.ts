@@ -10,13 +10,18 @@ export const createOrder = async (order: {
   return response.data;
 };
 
-export const fetchOrders = async () => {
-  const response = await axiosInstance.get("/api/orders");
-  return response.data;
-};
+// export const fetchOrders = async () => {
+//   const response = await axiosInstance.get("/api/orders");
+//   return response.data;
+// };
 
-export const getOrderDetails = async (orderId: string) => {
-  const response = await axiosInstance.get(`/api/orders/${orderId}`);
+// export const getOrderDetails = async (orderId: string) => {
+//   const response = await axiosInstance.get(`/api/orders/${orderId}`);
+//   return response.data;
+// };
+
+export const fetchOrders = async (filters = {}) => {
+  const response = await axiosInstance.get("/api/orders", { params: filters });
   return response.data;
 };
 

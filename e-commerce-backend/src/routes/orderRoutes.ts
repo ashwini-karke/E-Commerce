@@ -2,7 +2,6 @@ import express from "express";
 import { 
   createOrder, 
   getOrders, 
-  getOrderDetails, 
   updateOrderStatus 
 } from "../controllers/orderController";
 import { protect, adminOnly } from "../middleware/authMiddleware";
@@ -62,10 +61,26 @@ router.post("/create", protect, createOrder);
  * @swagger
  * /api/orders:
  *   get:
- *     summary: Get all orders for the user (admin gets all orders)
+ *     summary: Get orders (admin gets all, users get their own)
  *     tags: [Order]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: orderId
+ *         schema:
+ *           type: string
+ *         description: The ID of the order to fetch
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         description: Filter orders by name
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: Filter orders by category
  *     responses:
  *       200:
  *         description: Orders retrieved successfully
@@ -75,31 +90,6 @@ router.post("/create", protect, createOrder);
  *         description: No orders found
  */
 router.get("/", protect, getOrders);
-
-/**
- * @swagger
- * /api/orders/{orderId}:
- *   get:
- *     summary: Get order details by ID (users get their own, admins get all)
- *     tags: [Order]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: orderId
- *         required: true
- *         schema:
- *           type: string
- *         description: The ID of the order to fetch
- *     responses:
- *       200:
- *         description: Order details retrieved successfully
- *       404:
- *         description: Order not found
- *       500:
- *         description: Server error
- */
-router.get("/:orderId", protect, getOrderDetails);
 
 /**
  * @swagger

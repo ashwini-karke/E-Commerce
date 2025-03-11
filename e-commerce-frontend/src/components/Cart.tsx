@@ -25,7 +25,7 @@ const Cart: React.FC<{
     const parsedUser = user ? JSON.parse(user) : null;
     const timestamp = Date.now(); // Get current timestamp
     const invoiceNumber = parsedUser.id
-      ? `INV-${parsedUser.id}-${timestamp}`
+      ? `INV-${timestamp}-${parsedUser.id}`
       : `INV-${timestamp}`; // Generate unique invoice number
 
     setBill((prev: any) => ({ ...prev, invoice: invoiceNumber, cart:cart }));
